@@ -1,15 +1,15 @@
 # Tabela Fipe
 Dashboard com a visualização da desvalorização de carros nos últimos seis semestres
 
-É necessário ter o Docker instalado
-
-Para construir a imagem Docker
+Para iniciar via Docker compose
 
 ```
-docker build . -t fipe-analise
+docker-compose up
 ```
 
-Para executar a imagem criada
+Para iniciar via Streamlit*
 ```
-docker run fipe-analise
+streamlit run fipe/streamlit_main_page.py
 ```
+
+ *Necessário instalar as dependências do requirements.txt
