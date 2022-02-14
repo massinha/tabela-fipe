@@ -7,6 +7,12 @@ from methods import *
 
 st.title("O quanto seu carro desvalorizou?")
 
+st.markdown(f'''
+    <style>
+        section[data-testid="stSidebar"] .css-1l02zno {{width: 24rem;}}
+    </style>
+''',unsafe_allow_html=True)
+
 df_brands = pd.DataFrame(fipe.list_brands())
 brand_option = st.sidebar.selectbox('Marca', df_brands)
 
@@ -31,17 +37,19 @@ raw_price_series = df_car_info['price']
 price_series = extract_prices_series(df_car_info['price'])
 
 month_series = df_car_info['month']
+month_code = df_car_info['month_code']
 
 df_car_info = pd.DataFrame({
     'preço': price_series,
     'mês': month_series,
-    'preço real': raw_price_series
-}).sort_values('preço', ascending=True)
+    'preço real': raw_price_series,
+    'month_code': month_code
+}).sort_values('month_code', ascending=False)
 
 
 final_chart = alt.Chart(df_car_info).mark_line(point = True).encode(
-    alt.Y('preço', sort=alt.EncodingSortField(field='preço', order='descending')),
-    alt.X('mês'),
+    alt.Y('preço', sort=alt.EncodingSortField(field='price', order='ascending')),
+    alt.X('mês', sort=alt.EncodingSortField(field='month_code', order='ascending')),
     tooltip=['preço real', 'mês']
 ).configure_point(size=100)
 

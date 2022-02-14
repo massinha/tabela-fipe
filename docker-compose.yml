@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  web:
+    container_name: fipe-analise
+    build: .
+    volumes:
+      - ./:/var/app
+    command: streamlit run fipe/streamlit_main_page.py
+    ports:
+      - "8501:8501"
